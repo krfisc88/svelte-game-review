@@ -4,7 +4,7 @@
 </script>
 <div>
   {#each boardGames as game}
-	  <GameItem {...game}/>
+	  <GameItem {...game} on:delete-card />
   {/each}
 </div>
 

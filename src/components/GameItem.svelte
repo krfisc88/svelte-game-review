@@ -1,14 +1,25 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
   export let id;
   export let title;
   export let creator;
   export let imageUrl = null;
   export let description;
   export let url = null;
-  export let rating = 0;
+  export let rating = "";
+  let focused = false;
+
+  const deleteCard = () => {
+    dispatch("delete-card", id);
+  };
 </script>
 
-<article>
+<article on:mouseover={() => focused = true} on:mouseleave={() => focused = false}>
+  {#if focused}
+    <button on:click={deleteCard} class="delete">x</button>
+  {/if}
   <header>
     <h1><a href={url}>{title}</a></h1>
     <h2>By {creator}</h2>
@@ -33,6 +44,7 @@
 
 <style>
   article {
+    position: relative;
     margin-bottom: 2rem;
     background-color: white;
     border-radius: 15px;
@@ -77,6 +89,24 @@
     gap: 1rem;
     align-items: center;
     flex-direction: column;
+  }
+
+  /* Button styles */
+  .delete {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    background-color: transparent;
+    border: 3px solid #ff8811;
+    color: #ff8811;
+    border-radius: 50%;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .delete:hover {
+    background-color: #ff8811;
+    color: white;
   }
 
   /* Media Queries */

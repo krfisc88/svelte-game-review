@@ -1,7 +1,8 @@
 <script>
   import GameCards from "./components/GameCards.svelte";
   import AddGame from "./components/AddGame.svelte";
-  const boardGames = [
+  import Button from "./ui/Button.svelte";
+  let boardGames = [
     {
       id: "default1",
       title: "Root",
@@ -26,13 +27,36 @@
       rating: 5
     }
   ];
+
+  let editReviews = false;
+
+  function editGameList(event) {
+    const newGame = event.detail;
+    boardGames = [...boardGames, newGame];
+    editReviews = false;
+  }
+
+  function deleteCard(event) {
+    const deletedCardId = event.detail;
+    boardGames = boardGames.filter(game => game.id !== deletedCardId);
+  }
 </script>
 
 <main>
-  <AddGame />
-  <GameCards {boardGames}/>
+<h1>Board to Death</h1>
+  {#if editReviews}
+  <AddGame on:save={editGameList} />
+  {:else}
+  <Button on:click={() => editReviews = true}>Add Review</Button>
+  {/if}
+  <GameCards {boardGames} on:delete-card={deleteCard}/>
 </main>
 
 
 <style>
+  h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin: 0.4rem;
+  }
 </style>

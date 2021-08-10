@@ -4,8 +4,12 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none;
+}
+
 body {
   background-color: #ddd;
   padding: 1rem;
   margin: 0;
-}
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
