@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import Button from "../ui/Button.svelte";
 
   const dispatch = createEventDispatcher();
   export let id;
@@ -18,7 +19,7 @@
 
 <article on:mouseover={() => focused = true} on:mouseleave={() => focused = false}>
   {#if focused}
-    <button on:click={deleteCard} class="delete">x</button>
+    <Button mode="cancel" type="button" on:click={deleteCard}/>
   {/if}
   <header>
     <h1><a href={url}>{title}</a></h1>
@@ -89,24 +90,6 @@
     gap: 1rem;
     align-items: center;
     flex-direction: column;
-  }
-
-  /* Button styles */
-  .delete {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    background-color: transparent;
-    border: 3px solid #ff8811;
-    color: #ff8811;
-    border-radius: 50%;
-    font-size: 1rem;
-    font-weight: 600;
-  }
-
-  .delete:hover {
-    background-color: #ff8811;
-    color: white;
   }
 
   /* Media Queries */

@@ -45,9 +45,11 @@
 <main>
 <h1>Board to Death</h1>
   {#if editReviews}
-  <AddGame on:save={editGameList} />
+  <AddGame on:save={editGameList} on:close={() => editReviews = false} />
   {:else}
-  <Button on:click={() => editReviews = true}>Add Review</Button>
+  <div class="close-btn">
+    <Button mode="submit" on:click={() => editReviews = true}>Add Review</Button>
+  </div>
   {/if}
   <GameCards {boardGames} on:delete-card={deleteCard}/>
 </main>
@@ -58,5 +60,10 @@
     text-align: center;
     font-size: 3rem;
     margin: 0.4rem;
+  }
+
+  .close-btn {
+    text-align: center;
+    margin-bottom: 1rem;
   }
 </style>

@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
   import Button from "../ui/Button.svelte";
   import FormControl from "../ui/FormControl.svelte";
 
@@ -24,9 +24,14 @@
 
     document.querySelector("form").reset();
   };
+
+  const formClose = () => {
+    dispatch("close");
+  };
 </script>
 
 <form on:submit|preventDefault={onSubmit}>
+  <Button type="button" mode="cancel" on:click={formClose} />
   <fieldset>
     <legend>
       Add New Review
@@ -64,7 +69,7 @@
       on:input={(event) => rating = event.target.value}
     >Rating</FormControl>
 </fieldset>
-  <Button>Add Review</Button>
+  <Button mode="submit">Add Review</Button>
 </form>
 
 <style>
@@ -73,6 +78,7 @@
     margin: auto;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
   fieldset {
     border: none;
